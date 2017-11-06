@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2017 Jackson Gable
+ *
+ * This file is released under the MIT License.
+ */
+
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 

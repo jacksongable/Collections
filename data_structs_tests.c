@@ -1,6 +1,9 @@
-//
-// Created by red on 11/4/17.
-//
+/*
+ * Copyright (c) 2017 Jackson Gable
+ *
+ * This file is released under the MIT License.
+ */
+
 #include <assert.h>
 #include <stdio.h>
 #include "LinkedList.h"
