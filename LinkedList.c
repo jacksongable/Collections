@@ -19,7 +19,7 @@ int size = 0;
 //Pointer to first node in the list
 Node *HEAD = NULL;
 
-//Traverses the list to the node the cursor is set to, and returns a pointer to that node.
+//Traverses the list to 'position', and returns a pointer to that node.
 Node *node(int position) {
     Node *node = HEAD;
     if (position == 0)
@@ -54,7 +54,7 @@ int ll_delete(int position) {
         HEAD = HEAD->next;
 
     if (position != size - 1) { //Deleting a node in the middle of the list
-        //"Glue" the nodes before and after the node to delete together
+        //"Glue" together the nodes before and after the to-be-deleted node
         node(position - 1)->next = node(position + 1);
     }
 
