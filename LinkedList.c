@@ -1,6 +1,5 @@
-#include "LinkedList.h"
-#include <stdio.h>
 #include <stdlib.h>
+#include "LinkedList.h"
 
 typedef struct node Node;
 
@@ -48,10 +47,7 @@ int ll_delete(int position) {
     if (position == 0) // Deleting head node
         HEAD = HEAD->next;
 
-    Node *prev_node = position != 0 ? node(position - 1) : NULL;
-
     if (position != size - 1) { //Deleting a node in the middle of the list
-
         //"Glue" the nodes before and after the node to delete together
         node(position - 1)->next = node(position + 1);
     }

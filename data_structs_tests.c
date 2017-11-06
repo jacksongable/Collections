@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "LinkedList.h"
 
-test_LinkedList() {
+void test_LinkedList() {
     int test1 = 1, test2 = 2, test3 = 3;
 
     //[0] == 1, [1] == 2, [2] == 3
@@ -55,5 +55,6 @@ test_LinkedList() {
 
 int main () {
     test_LinkedList();
+    return 0;
     //More data structures to come! :)
 }
