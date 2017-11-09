@@ -4,7 +4,7 @@
  * This file is released under the MIT License.
  */
 
-#include "test_LinkedList.h"
+#include "test_linkedlist.h"
 
 int main () {
     test_linkedlist();
