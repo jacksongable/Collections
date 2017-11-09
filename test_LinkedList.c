@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2017 Jackson Gable
+ *
+ * This file is released under the MIT License.
+ */
+
 #include <assert.h>
 #include <stdlib.h>
 #include "LinkedList.h"
