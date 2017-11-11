@@ -5,8 +5,10 @@
  */
 
 #include "test_linkedlist.h"
+#include "test_stack.h"
 
 int main () {
     test_linkedlist();
+    test_stack();
     return 0;
 }
