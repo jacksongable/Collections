@@ -9,23 +9,46 @@
 #include "stack.h"
 
 typedef struct stack {
-    unsigned int stack_ptr, max_capacity;
-    void **stack_bottom;
+
+    /*
+     * Points to the top of the stack where elements should be pushed.
+     * Elements should be popped from stack_ptr - 1
+     */
+    unsigned int stack_ptr;
+
+    /*
+     * The maximum capacity of the stack
+     */
+    unsigned int max_capacity;
+
+    /*
+     * The memory address of the bottom of the stack. Note: This stack grows upwards.
+     */
+    void **data_address;
 } stack;
 
+/*
+ * Allocates a new stack with size 'capacity' on the heap and
+ * returns a pointer to the new stack
+ */
 stack *alloc_stack(unsigned int capacity) {
     stack *stack = malloc(sizeof(stack));
     stack->max_capacity = capacity;
-    stack->stack_ptr = 0; //The top is where the next element will be pushed to. Element to be popped is top - 1.
 
-    stack->stack_bottom = (void**) calloc(capacity, sizeof(void*));
+    stack->stack_ptr = 0;
+
+    stack->data_address = (void**) calloc(capacity, sizeof(void*));
     return stack;
 }
 
+/*
+ * Pushes a copy of the data in 'element_addr' onto the stack.
+ * Returns a pointer to the element on success, or STACK_OVERFLOW_ERR on failure.
+ */
 void *push(stack *stack, const void *element_addr) {
     if (stack->stack_ptr + 1 > stack->max_capacity)
         return STACK_OVERFLOW_ERR; //Stack overflow!
-    void *push_address = stack->stack_ptr++ + stack->stack_bottom;
+    void *push_address = stack->stack_ptr++ + stack->data_address;
     memcpy(push_address, element_addr, sizeof(void *));
     return push_address;
 }
@@ -33,13 +56,13 @@ void *push(stack *stack, const void *element_addr) {
 void *peek(const stack *stack) {
     if ((signed) stack->stack_ptr - 1 < 0)
         return STACK_UNDERFLOW_ERR; //Stack underflow!
-    return stack->stack_ptr + stack->stack_bottom - 1;
+    return stack->stack_ptr + stack->data_address - 1;
 }
 
 void *pop(stack *stack) {
     if ((signed)stack->stack_ptr - 1 < 0)
         return STACK_UNDERFLOW_ERR; //Stack underflow!
-    void *pop_addr = --stack->stack_ptr + stack->stack_bottom;
+    void *pop_addr = --stack->stack_ptr + stack->data_address;
     return pop_addr;
 }
 
