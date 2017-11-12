@@ -7,12 +7,14 @@
 #ifndef COLLECTIONS_STACK_H
 
 #ifndef STACK_OVERFLOW_ERR
-#define  STACK_OVERFLOW_ERR (void *)(-2)
+#define  STACK_OVERFLOW_ERR (void*)(-1)
 #endif
 
 #ifndef STACK_UNDERFLOW_ERR
-#define STACK_UNDERFLOW_ERR (void *)(-3)
+#define STACK_UNDERFLOW_ERR (void*)(-2)
 #endif
+
+#define COLLECTIONS_STACK_H
 
 typedef struct stack stack;
 
@@ -23,9 +25,7 @@ void *pop(stack *stack);
 
 unsigned int stack_size(const stack *stack);
 unsigned int stack_capacity(const stack *stack);
+
 void debug(stack *stack);
-
-
-#define COLLECTIONS_STACK_H
 
 #endif //COLLECTIONS_STACK_H

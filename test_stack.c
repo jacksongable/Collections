@@ -9,11 +9,12 @@
 #include <stdio.h>
 #include "stack.h"
 
-stack *test_alloc(unsigned int);
+stack *test_stack_alloc(unsigned int);
 void test_push(stack*, unsigned int, int*);
 void test_peek(stack*, unsigned int, const int*);
 void test_pop(stack*, unsigned int, const int*);
 void test_stack_overflow_failsafe(stack*, const int*);
+void test_stack_underflow_failsafe(stack*);
 
 void test_stack () {
     printf("Starting stack test...\n");
@@ -24,7 +25,7 @@ void test_stack () {
     const unsigned int values_count = 10;
 
     printf("Testing stack allocation...");
-    stack *test_stack = test_alloc(values_count);
+    stack *test_stack = test_stack_alloc(values_count);
     printf(" Success.\n"); //Assertions in test method will halt execution if a test fails.
 
     printf("Testing push operation...");
@@ -39,14 +40,18 @@ void test_stack () {
     test_pop(test_stack, values_count, values);
     printf(" Success.\n");
 
-    printf("Testing stack overflow error failsafe...");
+    printf("Testing stack overflow failsafe...");
     test_stack_overflow_failsafe(test_stack, values);
+    printf("Success.\n");
+
+    printf("Testing stack underflow failsafe...");
+    test_stack_underflow_failsafe(test_stack);
     printf("Success.\n");
 
     printf("Stack tests passed.\n");
 }
 
-stack *test_alloc(unsigned int capacity) {
+stack *test_stack_alloc(unsigned int capacity) {
     stack *stack = alloc_stack(capacity);
     assert(stack != NULL);
     return stack;
@@ -55,8 +60,8 @@ stack *test_alloc(unsigned int capacity) {
 void test_push(stack *stack, const unsigned int values_count, int *values) {
     for (int i = 0; i < values_count; i++) {
         int expected = *(values + i);
-        int *actual = (int *)push(stack, values + i);
-        assert(*actual == expected);
+        int actual = *(int *)push(stack, values + i);
+        assert(actual == expected);
     }
 }
 
@@ -77,13 +82,19 @@ void test_pop(stack *stack, const unsigned int values_count, int const *values) 
 }
 
 void test_stack_overflow_failsafe(stack *stack, int const *values) {
-    unsigned int to_overflow = stack_capacity(stack) + 1;
-    for (int i = 0; i < to_overflow; i++) {
-        if (i != to_overflow - 1) { //Fill up the stack
-            push(stack, values + i);
+    unsigned int capacity = stack_capacity(stack);
+    for (int i = 0; i < capacity; i++) {
+        if (i != capacity) { //Fill up the stack
+            assert(push(stack, values + i) != STACK_OVERFLOW_ERR);
             continue;
         }
         assert(push(stack, values) == STACK_OVERFLOW_ERR);
     }
+}
+
+void test_stack_underflow_failsafe(stack *stack) {
+    for (int i = stack_size(stack); i > 0; i--)
+        assert(pop(stack) != STACK_UNDERFLOW_ERR);
+    assert(pop(stack) == STACK_UNDERFLOW_ERR);
 
 }

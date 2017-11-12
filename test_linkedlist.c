@@ -6,21 +6,43 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "linkedlist.h"
 
+linkedlist* test_ll_alloc();
 void test_ll_add(linkedlist*, unsigned int, int*);
 void test_ll_get(linkedlist*, unsigned int, int*);
 void test_ll_delete(linkedlist*, unsigned int, int*);
 
 void test_linkedlist() {
+    printf("Starting linked list test...");
+
     const unsigned int values_count = 10;
     int values[] = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20};
 
-    linkedlist *test_list = alloc_ll();
+    printf("Testing linked list allocation...");
+    linkedlist *test_list = test_ll_alloc();
+    printf(" Success.\n");
 
+    printf("Testing add operation...");
     test_ll_add(test_list,  values_count, values);
+    printf(" Success.\n");
+
+    printf("Testing get operation...");
     test_ll_get(test_list, values_count, values);
+    printf(" Success.\n");
+
+    printf("Testing delete operation...");
     test_ll_delete(test_list, values_count, values);
+    printf(" Success.\n");
+
+    printf("Linked list tests passed.\n\n");
+}
+
+linkedlist *test_ll_alloc() {
+    linkedlist *list = alloc_ll();
+    assert(list != NULL);
+    return list;
 }
 
 void test_ll_add(linkedlist *list, const unsigned int value_count, int *values) {
