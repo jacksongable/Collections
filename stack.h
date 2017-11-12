@@ -26,6 +26,4 @@ void *pop(stack *stack);
 unsigned int stack_size(const stack *stack);
 unsigned int stack_capacity(const stack *stack);
 
-void debug(stack *stack);
-
 #endif //COLLECTIONS_STACK_H

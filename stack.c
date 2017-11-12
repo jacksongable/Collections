@@ -51,13 +51,3 @@ unsigned int stack_size(const stack *stack) {
 unsigned int stack_capacity(const stack *stack) {
     return stack->max_capacity;
 }
-
-void debug(stack *stack) {
-    printf("Top: %d\nCapacity: %d\nStore Address: %p\n\n",
-           stack->stack_ptr, stack->max_capacity, *stack->stack_bottom);
-    for (int n = 0; n < stack->max_capacity; n++) {
-        void *addr = stack->stack_bottom + n;
-        printf("Address: %p\tValue: %d\n", addr, *(int *)addr);
-    }
-    printf("\n");
-}
