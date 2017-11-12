@@ -93,8 +93,12 @@ void test_stack_overflow_failsafe(stack *stack, int const *values) {
 }
 
 void test_stack_underflow_failsafe(stack *stack) {
-    for (int i = stack_size(stack); i > 0; i--)
+    for (int i = stack_size(stack); i > 0; i--) {
+        assert(peek(stack) != STACK_UNDERFLOW_ERR);
         assert(pop(stack) != STACK_UNDERFLOW_ERR);
+
+    }
     assert(pop(stack) == STACK_UNDERFLOW_ERR);
+    assert(peek(stack) == STACK_UNDERFLOW_ERR);
 
 }
