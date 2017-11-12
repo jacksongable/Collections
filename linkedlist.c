@@ -17,6 +17,9 @@ struct linkedlist {
     struct node *head;
 };
 
+/*
+ * Allocates a new linked list on the heap, and returns a pointer to the list
+ */
 linkedlist *alloc_ll() {
     linkedlist *list = malloc(sizeof(linkedlist));
     list->size = 0;
@@ -24,7 +27,9 @@ linkedlist *alloc_ll() {
     return list;
 }
 
-//Traverses the list to 'position', and returns a pointer to that node.
+/*
+ * For internal use. Traverses the list to 'position', and returns a pointer to that node.
+ */
 struct node *_node_at(linkedlist *list, int position) {
     struct node *the_node = list->head;
     if (position == 0)
@@ -34,6 +39,9 @@ struct node *_node_at(linkedlist *list, int position) {
     return the_node;
 }
 
+/*
+ * Adds an element to the end of the linked list. Returns LINKEDLIST_OK on success.
+ */
 int ll_add(linkedlist *list, void *element) {
     int position = ++(list->size) - 1; //Increment size and move cursor to last node in list
     struct node *new_node = malloc(sizeof(struct node));
@@ -46,12 +54,16 @@ int ll_add(linkedlist *list, void *element) {
     else
         _node_at(list, position - 1)->next = new_node;
 
-    return 1; //Success
+    return LINKEDLIST_OK; //Success
 }
 
+/*
+ * Deletes the element at the specified position from the list. Retunrs LINKEDLIST_OK on
+ * success, or LINKEDLIST_OUT_OF_BOUNDS_EX if an illegal position is supplied.
+ */
 int ll_delete(linkedlist *list, int position) {
     if (position < 0 || position >= list->size)
-        return 0; //Index out of bounds
+        return LINKEDLIST_OUT_OF_BOUNDS_EX; //Index out of bounds
 
     struct node *to_delete = _node_at(list, position);
 
@@ -72,12 +84,19 @@ int ll_delete(linkedlist *list, int position) {
     return 1; //Success
 }
 
+/*
+ * Returns the element at the given position on the list, or returns
+ * LINKEDLIST_OUT_OF_BOUNDS_EX if an illegal position is supplied.
+ */
 void *ll_get(linkedlist *list, int position) {
     if (position < 0 || position >= list->size)
-        return NULL; //Illegal
+        return LINKEDLIST_OUT_OF_BOUNDS_EX; //Illegal
     return _node_at(list, position)->element;
 }
 
+/*
+ * Returns the number of elements in the list.
+ */
 unsigned int ll_size(linkedlist *list) {
     return list->size;
 }
