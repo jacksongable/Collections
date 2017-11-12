@@ -7,7 +7,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "linkedlist.h"
+#include "../linkedlist.h"
 
 linkedlist* test_ll_alloc();
 void test_ll_add(linkedlist*, unsigned int, int*);

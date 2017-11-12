@@ -7,7 +7,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "stack.h"
+#include "../stack.h"
 
 stack *test_stack_alloc(unsigned int);
 void test_push(stack*, unsigned int, int*);
