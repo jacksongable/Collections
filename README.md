@@ -6,7 +6,6 @@ are also on the way.
 
 Stay tuned!
 
-
 ## Usage
 
 ### Linked List

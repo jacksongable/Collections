@@ -66,10 +66,10 @@ void test_ll_delete(linkedlist *list, const unsigned int value_count, int *value
     assert(ll_delete(list, 0) == LINKEDLIST_OK); //Delete first node
     assert(*(int *)ll_get(list, 0) == *(values + 1)); // Make sure the delete went through
 
-    assert(ll_delete(list, 5) == L); //Same with a middle node
+    assert(ll_delete(list, 5) == LINKEDLIST_OK); //Same with a middle node
     assert(*(int *)ll_get(list, 5) == *(values + 7));
 
-    assert(ll_delete(list, 7) == 1); //Now with the last node
+    assert(ll_delete(list, 7) == LINKEDLIST_OK); //Now with the last node
     assert(*(int *)ll_get(list, 6) == *(values + 8));
 }
 
