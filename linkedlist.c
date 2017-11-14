@@ -61,8 +61,8 @@ int ll_add(linkedlist *list, void *element) {
  * Deletes the element at the specified position from the list. Retunrs LINKEDLIST_OK on
  * success, or LINKEDLIST_OUT_OF_BOUNDS_EX if an illegal position is supplied.
  */
-int ll_delete(linkedlist *list, int position) {
-    if (position < 0 || position >= list->size)
+int ll_delete(linkedlist *list, unsigned int position) {
+    if (position >= list->size)
         return LINKEDLIST_OUT_OF_BOUNDS_EX; //Index out of bounds
 
     struct node *to_delete = _node_at(list, position);
@@ -81,15 +81,15 @@ int ll_delete(linkedlist *list, int position) {
     //Free up dat RAM
     free(to_delete);
     list->size--;
-    return 1; //Success
+    return LINKEDLIST_OK; //Success
 }
 
 /*
  * Returns the element at the given position on the list, or returns
  * LINKEDLIST_OUT_OF_BOUNDS_EX if an illegal position is supplied.
  */
-void *ll_get(linkedlist *list, int position) {
-    if (position < 0 || position >= list->size)
+void *ll_get(linkedlist *list, unsigned int position) {
+    if (position >= list->size)
         return LINKEDLIST_OUT_OF_BOUNDS_EX; //Illegal
     return _node_at(list, position)->element;
 }

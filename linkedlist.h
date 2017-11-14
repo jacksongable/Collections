@@ -16,8 +16,8 @@ typedef struct linkedlist linkedlist;
 linkedlist *alloc_ll();
 
 int ll_add(linkedlist *list, void *element);
-int ll_delete(linkedlist *list, int position);
-void *ll_get(linkedlist *list, int position);
+int ll_delete(linkedlist *list, unsigned int position);
+void *ll_get(linkedlist *list, unsigned int position);
 
 unsigned int ll_size(linkedlist *list);
 
