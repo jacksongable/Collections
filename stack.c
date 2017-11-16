@@ -27,7 +27,7 @@ typedef struct stack {
     /*
      * The memory address of the bottom of the stack. Note: This stack grows upwards.
      */
-    void **data_address;
+    void **stack_origin;
 } stack;
 
 /*
@@ -39,7 +39,7 @@ stack *alloc_stack(unsigned int capacity) {
 
     stack->stack_ptr = 0;
     stack->max_capacity = capacity;
-    stack->data_address = (void**) calloc(capacity, sizeof(void*));
+    stack->stack_origin = (void**) calloc(capacity, sizeof(void*));
 
     return stack;
 }
@@ -51,7 +51,7 @@ stack *alloc_stack(unsigned int capacity) {
 void *push(stack *stack, const void *element_addr) {
     if (stack->stack_ptr + 1 > stack->max_capacity)
         return STACK_OVERFLOW_ERR; //Stack overflow!
-    void *push_address = stack->data_address + stack->stack_ptr++;
+    void *push_address = stack->stack_origin + stack->stack_ptr++;
     memcpy(push_address, element_addr, sizeof(void*));
     return push_address;
 }
@@ -66,7 +66,7 @@ void *push(stack *stack, const void *element_addr) {
 void *peek(const stack *stack) {
     if ((signed)stack->stack_ptr - 1 < 0)
         return STACK_UNDERFLOW_ERR; //Stack underflow!
-    return stack->stack_ptr + stack->data_address - 1;
+    return stack->stack_ptr + stack->stack_origin - 1;
 }
 
 /*
@@ -80,7 +80,7 @@ void *peek(const stack *stack) {
 void *pop(stack *stack) {
     if ((signed)stack->stack_ptr - 1 < 0)
         return STACK_UNDERFLOW_ERR; //Stack underflow!
-    return stack->data_address + --stack->stack_ptr;
+    return stack->stack_origin + --stack->stack_ptr;
 }
 
 /*
