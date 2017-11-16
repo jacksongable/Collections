@@ -19,7 +19,7 @@
 typedef struct stack stack;
 
 stack *alloc_stack(unsigned int capacity);
-void *push(stack *stack, const void *element_addr);
+void *push(stack *stack, const void *element_ptr);
 void *peek(const stack *stack);
 void *pop(stack *stack);
 

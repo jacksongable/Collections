@@ -11,8 +11,10 @@
 typedef struct stack {
 
     /*
-     * Points to the top of the stack where elements should be pushed.
-     * Elements should be popped from stack_ptr - 1.
+     * Points to the top of the stack.
+     *
+     * Push elements to 'stack_origin + stack_ptr'.
+     * Pop elements from 'stack_origin + stack_ptr - 1.'
      *
      * The value of stack_ptr will always be equivalent to the number of
      * elements on the stack.
@@ -45,14 +47,15 @@ stack *alloc_stack(unsigned int capacity) {
 }
 
 /*
- * Pushes a copy of the data in the provided memory address onto the stack.
- * Returns a pointer to the stack element on success, or STACK_OVERFLOW_ERR on failure.
+ * Pushes a pointer to an element to the stack.
+ *
+ * Returns the pointer to the stack element on success, or STACK_OVERFLOW_ERR on failure.
  */
-void *push(stack *stack, const void *element_addr) {
+void *push(stack *stack, const void *element_ptr) {
     if (stack->stack_ptr + 1 > stack->max_capacity)
         return STACK_OVERFLOW_ERR; //Stack overflow!
     void *push_address = stack->stack_origin + stack->stack_ptr++;
-    memcpy(push_address, element_addr, sizeof(void*));
+    memcpy(push_address, element_ptr, sizeof(void*));
     return push_address;
 }
 
