@@ -83,13 +83,9 @@ void test_pop(stack *stack, const unsigned int values_count, int const *values) 
 
 void test_stack_overflow_failsafe(stack *stack, int const *values) {
     unsigned int capacity = stack_capacity(stack);
-    for (int i = 0; i < capacity; i++) {
-        if (i != capacity) { //Fill up the stack
-            assert(push(stack, values + i) != STACK_OVERFLOW_ERR);
-            continue;
-        }
-        assert(push(stack, values) == STACK_OVERFLOW_ERR);
-    }
+    for (int i = 0; i < capacity; i++)
+        assert(push(stack, values + i) != STACK_OVERFLOW_ERR);
+    assert(push(stack, values) == STACK_OVERFLOW_ERR);
 }
 
 void test_stack_underflow_failsafe(stack *stack) {
